@@ -50,7 +50,7 @@ public class PhoneList {
 			for (int p = 0; p < phoneCount; p++) {
 				final String phoneNumber = buffer.getWord();
 				if (PhoneCorrect.YES == phoneCorrect){
-					phoneCorrect = scanPhone(tree, phoneNumber);
+					phoneCorrect = scanPhoneToRefactor(tree, phoneNumber);
 				}
 			}
 			
@@ -93,11 +93,12 @@ public class PhoneList {
 	
 	public static PhoneCorrect scanPhoneToRefactor(PhoneTree phone, final String phoneNumber) {
 		PhoneCorrect phoneCorrect = PhoneCorrect.YES;
+		final int lastElementIdx = phoneNumber.length() - 1;
 		if (phoneNumber != null && !phoneNumber.isEmpty()) {
 			for (int i = 0; i < phoneNumber.length(); i++) {
 				int number = (int) phoneNumber.charAt(i) - 48;
 				if (phone.nodes[number] != null) {
-					if (phone.nodes[number].end) {
+					if (phone.nodes[number].end || i == lastElementIdx) {
 						phoneCorrect = phoneCorrect.NO;
 						break;
 					}
