@@ -23,7 +23,7 @@ enum PhoneCorrect{
 }
 class PhoneTree {
 	PhoneTree[] nodes = new PhoneTree[10];
-	boolean end;
+	boolean endElement;
 }
 public class PhoneList {
 	
@@ -60,6 +60,8 @@ public class PhoneList {
 		if (debug) {
 			System.out.println("Total time: " + (new Date().getTime() - startTime));
 		}
+		
+		buffer.close();
 
 	}
 	
@@ -74,7 +76,7 @@ public class PhoneList {
 					nextElement = new PhoneTree();
 					phone.nodes[number] = nextElement;
 				} else {
-					if (nextElement.end || i == lastElementIdx) {
+					if (nextElement.endElement || i == lastElementIdx) {
 						phoneCorrect = PhoneCorrect.NO;
 						break;
 					}
@@ -83,7 +85,7 @@ public class PhoneList {
 				phone = nextElement;
 				
 				if (i == lastElementIdx){
-					nextElement.end = true;
+					nextElement.endElement = true;
 				}
 				
 			}
@@ -97,17 +99,15 @@ public class PhoneList {
 		if (phoneNumber != null && !phoneNumber.isEmpty()) {
 			for (int i = 0; i < phoneNumber.length(); i++) {
 				int number = (int) phoneNumber.charAt(i) - 48;
-				if (phone.nodes[number] != null) {
-					if (phone.nodes[number].end || i == lastElementIdx) {
-						phoneCorrect = phoneCorrect.NO;
-						break;
-					}
+				if (phone.nodes[number] != null && (phone.nodes[number].endElement || i == lastElementIdx)) {
+					phoneCorrect = phoneCorrect.NO;
+					break;
 				} else {
 					phone.nodes[number] = new PhoneTree();
 				}
 				phone = phone.nodes[number];
 			}
-			phone.end = true;
+			phone.endElement = true;
 		}
 		return phoneCorrect;
 
