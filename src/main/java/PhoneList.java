@@ -99,9 +99,11 @@ public class PhoneList {
 		if (phoneNumber != null && !phoneNumber.isEmpty()) {
 			for (int i = 0; i < phoneNumber.length(); i++) {
 				int number = (int) phoneNumber.charAt(i) - 48;
-				if (phone.nodes[number] != null && (phone.nodes[number].endElement || i == lastElementIdx)) {
-					phoneCorrect = phoneCorrect.NO;
-					break;
+				if (phone.nodes[number] != null) {
+					if (phone.nodes[number].endElement || i == lastElementIdx) {
+						phoneCorrect = phoneCorrect.NO;
+						break;
+					}
 				} else {
 					phone.nodes[number] = new PhoneTree();
 				}
