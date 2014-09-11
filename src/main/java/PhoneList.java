@@ -50,7 +50,7 @@ public class PhoneList {
 			for (int p = 0; p < phoneCount; p++) {
 				final String phoneNumber = buffer.getWord();
 				if (PhoneCorrect.YES == phoneCorrect){
-					phoneCorrect = scanePhone(tree, phoneNumber);
+					phoneCorrect = scanPhone(tree, phoneNumber);
 				}
 			}
 			
@@ -63,7 +63,7 @@ public class PhoneList {
 
 	}
 	
-	private static PhoneCorrect scanePhone(PhoneTree phone, final String phoneNumber) {
+	private static PhoneCorrect scanPhone(PhoneTree phone, final String phoneNumber) {
 		PhoneCorrect phoneCorrect = PhoneCorrect.YES;
 		final int lastElementIdx = phoneNumber.length() - 1;
 		if (phoneNumber != null && !phoneNumber.isEmpty()) {
@@ -91,18 +91,17 @@ public class PhoneList {
 		return phoneCorrect;
 	}	
 	
-	public static PhoneCorrect scanPhoneToRefactor(PhoneTree phone, final String phoneNumber){
+	public static PhoneCorrect scanPhoneToRefactor(PhoneTree phone, final String phoneNumber) {
 		PhoneCorrect phoneCorrect = PhoneCorrect.YES;
-		if (phoneNumber != null && !phoneNumber.isEmpty()){
-			for (int i = 0; i < phoneNumber.length(); i++){
-				int number = (int)phoneNumber.charAt(i)-48;
-				if (phone.nodes[number] != null){
-					if (phone.nodes[number].end){
+		if (phoneNumber != null && !phoneNumber.isEmpty()) {
+			for (int i = 0; i < phoneNumber.length(); i++) {
+				int number = (int) phoneNumber.charAt(i) - 48;
+				if (phone.nodes[number] != null) {
+					if (phone.nodes[number].end) {
 						phoneCorrect = phoneCorrect.NO;
 						break;
 					}
-				}
-				else {
+				} else {
 					phone.nodes[number] = new PhoneTree();
 				}
 				phone = phone.nodes[number];
@@ -110,7 +109,7 @@ public class PhoneList {
 			phone.end = true;
 		}
 		return phoneCorrect;
-		
+
 	}
 	
 
