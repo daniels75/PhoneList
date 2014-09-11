@@ -13,7 +13,7 @@ public class PhoneListTest extends TestCase{
 	public void test01() throws IOException {
 
 		// given
-		final URL url = readFile("phone00.xml");
+		final URL url = readFile("phone01.xml");
 
 		// when
 		PhoneList.scanFromBufferedInput(null, url.getPath(), true);
